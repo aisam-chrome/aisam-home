@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel='stylesheet' type='text/css' href="{% static 'style3.css'%}">
+{% endblock customcss %}
+
+
+{% block header %}
+<header style="margin-bottom: 0px;" class="masthead mb-auto cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="inner">
+        <h3 class="masthead-brand"><a style="color: white;" href="{% url 'home' %}">Boyake</a></h3>
+        <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="{% url 'home' %}">home</a>
+        <a class="nav-link" href="{% url 'profile' %}">plofile</a>
+        <a class="nav-link" href="{% url 'create' %}">bokaku</a>
+        <a class="nav-link" href="{% url 'logout' %}">logout</a>
+        </nav>
+    </div>
+</header>
+{% endblock header %}
+
+{% block content %}
+<div style="margin-top: 50px;" class='container'>
+    <div style="background-color : #a9a9a9; margin-bottom: 5px; padding: 20px;" class="container" role="alert">
+        <p>タイトル:{{object.title}}</p>
+        <p>投稿者:{{object.author}}</p>
+        <p>内容:{{object.content}}</p>
+        <p><img src="{{object.images.url}}" width=300></p>
+        <a style="margin-right: 20px;" href="{% url 'good' object.pk %}" role="button" aria-pressed="true"><img style="background-color: #00000000; " src="{% static 'heart.png' %}" width="20" height="20"> {{item.good}}</a>
+        <a href="{% url 'read' object.pk %}"  role="button" aria-pressed="true"><img style="background-color: #00000000; " src="{% static 'good.png' %}" width="20" height="20"> {{item.read}}</a>
+    </div>
+</div>
+{% endblock content %}

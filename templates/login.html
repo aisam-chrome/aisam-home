@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link rel='stylesheet' type='text/css' href="{% static 'style.css'%}">
+<link rel='stylesheet' type='text/css' href="{% static 'style2.css'%}">
+{% endblock customcss %}
+
+{% block content %}
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">Boyake</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="{% url 'top' %}">トップ</a>
+        <a class="nav-link" href="{% url 'signup'%}">登録</a>
+        <a class="nav-link" href="{% url 'login' %}">ログイン</a>
+      </nav>
+    </div>
+  </header>
+
+  <form class="form-signin" method="POST" action="">{% csrf_token %}
+  <div style="text-align: center;">
+    <img class="mb-4" src="{% static 'icon.png' %}" alt="" width="95px" height="95px">
+  </div>
+  <div style="text-align: center;">
+    <h1 class="h3 mb-3 font-weight-normal" style="color: black;">ログインして下さい</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="text" id="inputEmail" class="form-control" name='username' placeholder="username" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" name='password' placeholder="Password" required>
+    <div class="checkbox mb-3"></div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
+  </div>
+</form>
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+              <p class="mt-5 mb-3 text-muted">&copy; Aisam . All Rights Reserved</p>
+
+
+{% endblock content %}

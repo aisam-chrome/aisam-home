@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel='stylesheet' type='text/css' href="{% static 'style3.css'%}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+{% endblock customcss %}
+
+{% block header %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <header style="margin-bottom: 0px;" class="masthead mb-auto cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <div class="inner">
+            <h3 class="masthead-brand"><a style="color: white;" href="{% url 'home' %}">Boyake</a></h3>
+            <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="{% url 'home' %}">home</a>
+            <a class="nav-link" href="{% url 'profile' %}">profile</a>
+            <a class="nav-link" href="{% url 'create' %}">bokaku</a>
+            <a class="nav-link" href="{% url 'logout' %}">logout</a>
+            </nav>
+        </div>
+    </header>
+{% endblock header %}
+
+{% block content %}
+<div class="maincontent">
+    <!--ぼやきリスト-->
+    <div class="list mt1">
+    {% for item in object_list %}
+    <div style="background-color : #a9a9a9; margin-bottom: 5px; padding: 20px;" class="container" role="alert">
+        <p>タイトル:<a href="{% url 'detail' item.pk %}">{{item.title}}</a></p>
+        <p>投稿者:{{item.author}}</p>
+        <a class="btn" style="margin-right: 20px;" href="#" role="button" aria-pressed="true"><img class="good"  src="{% static 'heart.png' %}" width="20" height="20"> {{item.good}}</a>
+        <a class="btn" href="#"  role="button" aria-pressed="true"><img class="read" style="background-color: #00000000; " src="{% static 'good.png' %}" width="20" height="20"> {{item.read}}</a>
+        <p style="float: right;">投稿日時: {{ item.created_date }}</p>
+    </div>
+    {% endfor %}
+    </div>
+    <!--ここまで-->
+
+    <!--検索-->
+    <div class="search">
+            <div class="col-lg-6 col-sm-6">
+                    <form method= "get" action="{% url 'items' %}" class="search-wrap">
+                         <div class="input-group" style="width: 300px;">
+                            <input name="q" type="text" class="form-control" placeholder="ぼやきを検索">
+                            <div class="input-group-append">
+                                <button id="id_search_button" class="btn btn-warning" type="submit" value="検索">検索</button>
+                            </div>
+                        </div>
+                    </form> 
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="widgets-wrap d-flex justify-content-end">
+                        
+                        <div class="widget-header icontext">
+                            <div class="icon-wrap icon-sm bg2 round text-secondary"><i class="fa fa-user"></i></div>
+                        </div> 
+                    </div>
+                </div> 
+    </div>
+    
+    <!--ここまで-->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script　type="text/javascript" src="{% static 'jquery.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+{% endblock content %}

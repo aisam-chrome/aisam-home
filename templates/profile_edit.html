@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel='stylesheet' type='text/css' href="{% static 'style3.css'%}">
+{% endblock customcss %}
+
+{% block header %}
+<header style="margin-bottom: 0px;" class="masthead mb-auto cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="inner">
+        <h3 class="masthead-brand"><a style="color: white;" href="{% url 'home' %}">Boyake</a></h3>
+        <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="{% url 'home' %}">home</a>
+        <a class="nav-link" href="{% url 'profile' %}">profile</a>
+        <a class="nav-link" href="{% url 'create' %}">bokaku</a>
+        <a class="nav-link" href="{% url 'logout' %}">logout</a>
+        </nav>
+    </div>
+</header>
+{% endblock header %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div style="text-align: center; margin-top: 50px;">
+    <form action="" method='POST' enctype="multipart/form-data">{% csrf_token %}
+    <p>タイトル:<input type="text" name='title'></p>
+    <p>内容:<input type="text" name="content"></p>
+    <p>画像:<input type="file" name="images"></p>
+    <input type="hidden" name="author" value="{{ user.username }}">
+    
+    <input type="submit" value="投稿する">
+    </form>
+</div>
+{% else %}
+<div style="text-align:center; font-size :35px; margin-top: 100px;">
+    <a href="{% url 'login' %}">ログイン</a>してください
+</div>
+{% endif %}
+{% endblock content %}

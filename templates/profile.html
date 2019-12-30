@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel='stylesheet' type='text/css' href="{% static 'style3.css'%}">
+{% endblock customcss %}
+
+{% block header %}
+<header style="margin-bottom: 0px;" class="masthead mb-auto cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="inner">
+        <h3 class="masthead-brand"><a style="color: white;" href="{% url 'home' %}">Boyake</a></h3>
+        <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="{% url 'home' %}">home</a>
+        <a class="nav-link" href="{% url 'profile' %}">profile</a>
+        <a class="nav-link" href="{% url 'create' %}">bokaku</a>
+        <a class="nav-link" href="{% url 'logout' %}">logout</a>
+        </nav>
+    </div>
+</header>
+{% endblock header %}
+
+{% block content %}
+<!--ユーザープロフィール-->
+<div class="profilelist">
+    <div class="contents">
+        <div class="icon-img"> 
+            <img>       
+        </div>    
+        <div class="myprofile">
+            <div class="username">
+                {% if user.is_authenticated %}
+                <p>名前:{{ user.get_username }}</p>
+                {% else %}
+                <p>ログインしていません</p>
+                {% endif %}
+            </div>
+            <div class="profile">
+                <p>{{object.title}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--ログイン中のユーザー投稿一覧-->
+<div style="width: 90%; "　class="list mt1">
+    {% for item in user_list %}
+    <div style="background-color : #a9a9a9; margin-bottom: 5px; padding: 20px;" class="container" role="alert">
+        <p>タイトル:<a href="{% url 'mydetail' item.pk %}">{{item.title}}</a></p>
+        <p>投稿者:{{item.author}}</p>
+        <a style="margin-right: 20px;" href="#" role="button" aria-pressed="true"><img style="background-color: #00000000; " src="{% static 'heart.png' %}" width="20" height="20"> {{item.good}}</a>
+        <a href="#"  role="button" aria-pressed="true"><img style="background-color: #00000000; " src="{% static 'good.png' %}" width="20" height="20"> {{item.read}}</a>
+        <p style="float: right;">投稿日時: {{ item.created_date }}</p>
+    </div>
+    {% endfor %}
+<!--ここまで-->
+{% endblock content %}
